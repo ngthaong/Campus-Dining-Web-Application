@@ -15,9 +15,45 @@
                 <p class="subtitle">Your guide to every meal on campus. Find what's open, see what's on the menu.</p>
                 <div class="button-group">
                     <button class="btn btn-primary" onclick="showScreen('loginScreen')">Log In</button>
-                    <button class="btn btn-secondary" onclick="showScreen('loginScreen')">Register</button>
+                    <button class="btn btn-secondary" onclick="showScreen('registerScreen')">Register</button>
                 </div>
-                <p class="footer-text">Try it For Free | <span class="link">Learn More</span></p>
+                <p class="footer-text">Try it For Free | <span class="link" onclick="showScreen('trackOrderScreen')">Track Order</span></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Screen -->
+    <div id="registerScreen" class="screen">
+        <div class="container-center">
+            <div class="content-box">
+                <h1 class="main-title">CREATE ACCOUNT</h1>
+                <p class="subtitle">Join Campus Dining today</p>
+                
+                <div class="login-form">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" class="form-input" id="registerName">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Email address</label>
+                        <input type="email" class="form-input" id="registerEmail">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" class="form-input" id="registerPassword">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-input" id="registerConfirmPassword">
+                    </div>
+                    
+                    <button class="btn btn-gray full-width" onclick="handleRegister(this)">Create Account</button>
+                    
+                    <p class="register-text">Already have an account? <a href="#" class="link" onclick="showScreen('loginScreen')">Log In</a></p>
+                </div>
             </div>
         </div>
     </div>
@@ -32,19 +68,19 @@
                 <div class="login-form">
                     <div class="form-group">
                         <label>Email address</label>
-                        <input type="email" class="form-input">
+                        <input type="email" class="form-input" id="loginEmail">
                     </div>
                     
                     <div class="form-group">
                         <label>Password</label>
-                        <input type="password" class="form-input">
+                        <input type="password" class="form-input" id="loginPassword">
                     </div>
                     
                     <a href="#" class="forgot-link">Forgot Password?</a>
                     
-                    <button class="btn btn-gray full-width" onclick="showScreen('locationsScreen')">Log In</button>
+                    <button class="btn btn-gray full-width" onclick="handleLogin(this)">Log In</button>
                     
-                    <p class="register-text">Don't have account? <a href="#" class="link">Register</a></p>
+                    <p class="register-text">Don't have an account? <a href="#" class="link" onclick="showScreen('registerScreen')">Register</a></p>
                 </div>
             </div>
         </div>
@@ -56,7 +92,15 @@
             <div class="header-content">
                 <h1 class="header-title">CAMPUS DINING</h1>
                 <div class="header-icons">
-                    <button class="icon-btn">🛒</button>
+                    <button class="icon-btn" onclick="showScreen('trackOrderScreen')" title="Track Order">📦</button>
+                    <button class="icon-btn cart-btn" onclick="toggleCart()">
+                        🛒
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </button>
+                    <button class="icon-btn" onclick="showNotificationModal()" title="Notification Settings">
+                        🔔
+                        <span id="notifIndicator" class="notif-indicator" style="display: none;"></span>
+                    </button>
                     <button class="icon-btn">👤</button>
                 </div>
             </div>
@@ -80,7 +124,7 @@
                     <p class="card-description">The main campus dining hall featuring a wide variety of cuisines and dessert stations.</p>
                 </div>
 
-                <div class="location-card">
+                <div class="location-card" onclick="showScreen('menuScreen')">
                     <div class="card-header">
                         <h3 class="card-title">McNary Dining Hall</h3>
                         <span class="badge badge-open">Open</span>
@@ -89,7 +133,7 @@
                     <p class="card-description">Global cuisine with rotating international stations. Features outdoor seating.</p>
                 </div>
 
-                <div class="location-card">
+                <div class="location-card" onclick="showScreen('menuScreen')">
                     <div class="card-header">
                         <h3 class="card-title">Trader Bing's</h3>
                         <span class="badge badge-open">Open</span>
@@ -98,7 +142,7 @@
                     <p class="card-description"><strong>Location:</strong> Austin Hall</p>
                 </div>
 
-                <div class="location-card">
+                <div class="location-card" onclick="showScreen('menuScreen')">
                     <div class="card-header">
                         <h3 class="card-title">Dixon Cafe</h3>
                         <span class="badge badge-open">Open</span>
@@ -107,52 +151,7 @@
                     <p class="card-description"><strong>Location:</strong> Dixon Recreation Center</p>
                 </div>
 
-                <div class="location-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Cascadia Market</h3>
-                        <span class="badge badge-open">Open</span>
-                    </div>
-                    <p class="card-hours">9:00 AM - 10:00 PM</p>
-                    <p class="card-description"><strong>Location:</strong> International Living-Learning Center</p>
-                </div>
-
-                <div class="location-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Cascadia Cafe</h3>
-                        <span class="badge badge-open">Open</span>
-                    </div>
-                    <p class="card-hours">7:30 AM - 6:00 PM</p>
-                    <p class="card-description"><strong>Location:</strong> International Living-Learning Center</p>
-                </div>
-
-                <div class="location-card">
-                    <div class="card-header">
-                        <h3 class="card-title">Cascadia Deli</h3>
-                        <span class="badge badge-open">Open</span>
-                    </div>
-                    <p class="card-hours">11:00 AM - 9:30 PM</p>
-                    <p class="card-description"><strong>Location:</strong> International Living-Learning Center</p>
-                </div>
-
-                <div class="location-card">
-                    <div class="card-header">
-                        <h3 class="card-title">West Side Cafe</h3>
-                        <span class="badge badge-open">Open</span>
-                    </div>
-                    <p class="card-hours">7:00 AM - 9:00 PM</p>
-                    <p class="card-description"><strong>Location:</strong> West Campus Hall</p>
-                </div>
-
-                <div class="location-card">
-                    <div class="card-header">
-                        <h3 class="card-title">West Side Market</h3>
-                        <span class="badge badge-open">Open</span>
-                    </div>
-                    <p class="card-hours">8:00 AM - 11:00 PM</p>
-                    <p class="card-description"><strong>Location:</strong> West Campus Hall</p>
-                </div>
-
-                <div class="location-card">
+                <div class="location-card" onclick="showScreen('menuScreen')">
                     <div class="card-header">
                         <h3 class="card-title">West Side Grill</h3>
                         <span class="badge badge-closed">Closed</span>
@@ -170,7 +169,15 @@
             <div class="header-content">
                 <h1 class="header-title">CAMPUS DINING</h1>
                 <div class="header-icons">
-                    <button class="icon-btn">🛒</button>
+                    <button class="icon-btn" onclick="showScreen('trackOrderScreen')" title="Track Order">📦</button>
+                    <button class="icon-btn cart-btn" onclick="toggleCart()">
+                        🛒
+                        <span class="cart-badge" id="cartBadge2">0</span>
+                    </button>
+                    <button class="icon-btn" onclick="showNotificationModal()" title="Notification Settings">
+                        🔔
+                        <span id="notifIndicator2" class="notif-indicator" style="display: none;"></span>
+                    </button>
                     <button class="icon-btn">👤</button>
                 </div>
             </div>
@@ -197,10 +204,10 @@
                         
                         <div class="menu-item">
                             <div class="item-info">
-                                <p class="item-name">Scramble Eggs ($3.50)</p>
+                                <p class="item-name">Scrambled Eggs ($3.50)</p>
                                 <span class="badge-v">V</span>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Scramble Eggs', '$3.50')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Scrambled Eggs', 3.50, 1)">Add</button>
                         </div>
 
                         <div class="menu-item">
@@ -208,14 +215,14 @@
                                 <p class="item-name">Pancakes with Syrup ($4.25)</p>
                                 <span class="badge-v">V</span>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Pancakes with Syrup', '$4.25')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Pancakes with Syrup', 4.25, 2)">Add</button>
                         </div>
 
                         <div class="menu-item">
                             <div class="item-info">
                                 <p class="item-name">Bacon & Sausage Platter ($5.00)</p>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Bacon & Sausage Platter', '$5.00')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Bacon & Sausage Platter', 5.00, 3)">Add</button>
                         </div>
 
                         <div class="menu-item">
@@ -223,7 +230,7 @@
                                 <p class="item-name">Fresh Fruit Bowl ($3.00)</p>
                                 <span class="badge-v">V</span>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Fresh Fruit Bowl', '$3.00')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Fresh Fruit Bowl', 3.00, 4)">Add</button>
                         </div>
 
                         <div class="menu-item">
@@ -231,7 +238,7 @@
                                 <p class="item-name">Oatmeal with Toppings ($2.75)</p>
                                 <span class="badge-v">V</span>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Oatmeal with Toppings', '$2.75')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Oatmeal with Toppings', 2.75, 5)">Add</button>
                         </div>
                     </div>
 
@@ -243,7 +250,7 @@
                             <div class="item-info">
                                 <p class="item-name">Grilled Chicken Sandwich ($6.50)</p>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Grilled Chicken Sandwich', '$6.50')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Grilled Chicken Sandwich', 6.50, 6)">Add</button>
                         </div>
 
                         <div class="menu-item">
@@ -251,14 +258,14 @@
                                 <p class="item-name">Caesar Salad ($5.75)</p>
                                 <span class="badge-v">V</span>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Caesar Salad', '$5.75')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Caesar Salad', 5.75, 7)">Add</button>
                         </div>
 
                         <div class="menu-item">
                             <div class="item-info">
                                 <p class="item-name">Beef Burger with Fries ($7.25)</p>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Beef Burger with Fries', '$7.25')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Beef Burger with Fries', 7.25, 8)">Add</button>
                         </div>
 
                         <div class="menu-item">
@@ -266,7 +273,7 @@
                                 <p class="item-name">Veggie Wrap ($5.50)</p>
                                 <span class="badge-v">V</span>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Veggie Wrap', '$5.50')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Veggie Wrap', 5.50, 9)">Add</button>
                         </div>
 
                         <div class="menu-item">
@@ -274,7 +281,7 @@
                                 <p class="item-name">Tomato Soup & Grilled Cheese ($6.00)</p>
                                 <span class="badge-v">V</span>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Tomato Soup & Grilled Cheese', '$6.00')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Tomato Soup & Grilled Cheese', 6.00, 10)">Add</button>
                         </div>
                     </div>
 
@@ -286,14 +293,14 @@
                             <div class="item-info">
                                 <p class="item-name">Grilled Salmon with Rice ($9.50)</p>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Grilled Salmon with Rice', '$9.50')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Grilled Salmon with Rice', 9.50, 11)">Add</button>
                         </div>
 
                         <div class="menu-item">
                             <div class="item-info">
                                 <p class="item-name">Spaghetti Bolognese ($7.75)</p>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Spaghetti Bolognese', '$7.75')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Spaghetti Bolognese', 7.75, 12)">Add</button>
                         </div>
 
                         <div class="menu-item">
@@ -301,14 +308,14 @@
                                 <p class="item-name">Vegetable Stir Fry ($6.75)</p>
                                 <span class="badge-v">V</span>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Vegetable Stir Fry', '$6.75')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Vegetable Stir Fry', 6.75, 13)">Add</button>
                         </div>
 
                         <div class="menu-item">
                             <div class="item-info">
                                 <p class="item-name">BBQ Chicken with Mashed Potatoes ($8.25)</p>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('BBQ Chicken with Mashed Potatoes', '$8.25')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('BBQ Chicken with Mashed Potatoes', 8.25, 14)">Add</button>
                         </div>
 
                         <div class="menu-item">
@@ -316,7 +323,7 @@
                                 <p class="item-name">Eggplant Parmesan ($7.50)</p>
                                 <span class="badge-v">V</span>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Eggplant Parmesan', '$7.50')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Eggplant Parmesan', 7.50, 15)">Add</button>
                         </div>
                     </div>
 
@@ -328,14 +335,14 @@
                             <div class="item-info">
                                 <p class="item-name">Fountain Drink ($1.50)</p>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Fountain Drink', '$1.50')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Fountain Drink', 1.50, 16)">Add</button>
                         </div>
 
                         <div class="menu-item">
                             <div class="item-info">
                                 <p class="item-name">Fresh Brewed Coffee ($2.00)</p>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Fresh Brewed Coffee', '$2.00')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Fresh Brewed Coffee', 2.00, 17)">Add</button>
                         </div>
 
                         <div class="menu-item">
@@ -343,7 +350,7 @@
                                 <p class="item-name">Chocolate Chip Cookie ($1.75)</p>
                                 <span class="badge-v">V</span>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Chocolate Chip Cookie', '$1.75')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Chocolate Chip Cookie', 1.75, 18)">Add</button>
                         </div>
 
                         <div class="menu-item">
@@ -351,7 +358,7 @@
                                 <p class="item-name">Ice Cream Sundae ($3.25)</p>
                                 <span class="badge-v">V</span>
                             </div>
-                            <button class="btn btn-add" onclick="showConfirmModal('Ice Cream Sundae', '$3.25')">Add</button>
+                            <button class="btn btn-add" onclick="addToCart('Ice Cream Sundae', 3.25, 19)">Add</button>
                         </div>
                     </div>
                 </div>
@@ -359,21 +366,208 @@
         </main>
     </div>
 
-    <!-- Confirmation Modal -->
-    <div id="confirmModal" class="modal">
-        <div class="modal-content">
-            <h3 class="modal-title">Confirm Add to Cart</h3>
-            <p class="modal-text">Do you want to add this item to your cart?</p>
-            <div class="modal-item">
-                <p class="modal-item-name" id="modalItemName"></p>
-                <p class="modal-item-price" id="modalItemPrice"></p>
+    <!-- Order Confirmation Screen -->
+    <div id="orderConfirmationScreen" class="screen">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="header-title">CAMPUS DINING</h1>
+                <div class="header-icons">
+                    <button class="icon-btn" onclick="showScreen('trackOrderScreen')" title="Track Order">📦</button>
+                    <button class="icon-btn cart-btn" onclick="toggleCart()">
+                        🛒
+                        <span class="cart-badge" id="cartBadge3">0</span>
+                    </button>
+                    <button class="icon-btn" onclick="showNotificationModal()" title="Notification Settings">
+                        🔔
+                        <span id="notifIndicator3" class="notif-indicator" style="display: none;"></span>
+                    </button>
+                    <button class="icon-btn">👤</button>
+                </div>
             </div>
-            <div class="modal-buttons">
-                <button class="btn btn-cancel" onclick="closeModal()">Cancel</button>
-                <button class="btn btn-confirm" onclick="confirmAddToCart()">Add to Cart</button>
+        </header>
+
+        <main class="main-content">
+            <div class="order-confirmation">
+                <div class="success-icon">✓</div>
+                <h2 class="confirmation-title">Order Confirmed!</h2>
+                <p class="confirmation-subtitle">Your order has been successfully placed</p>
+                
+                <div class="order-id-box">
+                    <p class="order-id-label">Order ID</p>
+                    <p class="order-id" id="orderId">ORD12345678</p>
+                    <p class="order-date" id="orderDate">Dec 01, 2025, 2:30 PM</p>
+                </div>
+
+                <div class="order-summary">
+                    <h3 class="summary-title">Order Summary</h3>
+                    <div id="orderSummaryItems"></div>
+                    <div class="order-total">
+                        <span>Total</span>
+                        <span class="total-price" id="orderTotal">$0.00</span>
+                    </div>
+                </div>
+
+                <div class="confirmation-actions">
+                    <button class="btn btn-secondary full-width" onclick="trackCurrentOrder()">Track This Order</button>
+                    <button class="btn btn-primary full-width" onclick="showScreen('locationsScreen')">Back to Locations</button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Track Order Screen -->
+    <div id="trackOrderScreen" class="screen">
+        <header class="header">
+            <div class="header-content">
+                <h1 class="header-title">CAMPUS DINING</h1>
+                <div class="header-icons">
+                    <button class="icon-btn cart-btn" onclick="toggleCart()">
+                        🛒
+                        <span class="cart-badge" id="cartBadge4">0</span>
+                    </button>
+                    <button class="icon-btn" onclick="showNotificationModal()" title="Notification Settings">
+                        🔔
+                        <span id="notifIndicator4" class="notif-indicator" style="display: none;"></span>
+                    </button>
+                    <button class="icon-btn">👤</button>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <button class="back-btn" onclick="showScreen('locationsScreen')">← Back to locations</button>
+
+            <div class="track-order-container">
+                <div class="track-header">
+                    <h2 class="track-title">Track Your Order</h2>
+                    <p class="track-subtitle">Enter your order ID to get real-time updates on your meal</p>
+                </div>
+
+                <div class="track-input-section">
+                    <div class="track-input-group">
+                        <input 
+                            type="text" 
+                            id="trackOrderInput"
+                            placeholder="Enter Order ID (e.g., ORD12345678)" 
+                            class="track-input"
+                            onkeypress="if(event.key === 'Enter') trackOrder()"
+                        >
+                        <button class="btn btn-primary" onclick="trackOrder()">Track Order</button>
+                    </div>
+                    
+                    <div id="trackError" class="track-error" style="display: none;"></div>
+                </div>
+
+                <div id="orderStatusContainer" style="display: none;"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div id="cartSidebar" class="cart-sidebar">
+        <div class="cart-overlay" onclick="toggleCart()"></div>
+        <div class="cart-panel">
+            <div class="cart-header">
+                <h2 class="cart-title">Your Cart</h2>
+                <button class="cart-close" onclick="toggleCart()">✕</button>
+            </div>
+
+            <div class="cart-body" id="cartBody">
+                <div class="empty-cart">
+                    <div class="empty-icon">🛒</div>
+                    <p>Your cart is empty</p>
+                </div>
+            </div>
+
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="cart-total">
+                    <span>Total:</span>
+                    <span class="total-amount" id="cartTotalAmount">$0.00</span>
+                </div>
+                <button class="btn btn-checkout" onclick="handleCheckout()">Checkout</button>
             </div>
         </div>
     </div>
+
+    <!-- Notification Preferences Modal -->
+    <div id="notificationModal" class="modal-overlay">
+        <div class="modal-container">
+            <div class="modal-header">
+                <div class="modal-header-content">
+                    <div class="modal-icon">🔔</div>
+                    <h2 class="modal-title">Notification Preferences</h2>
+                </div>
+                <button class="modal-close" onclick="hideNotificationModal()">✕</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="info-banner">
+                    <p>Choose how you'd like to receive updates about your order status, including when your order is received, being prepared, and ready for pickup.</p>
+                </div>
+
+                <!-- In-App Notifications -->
+                <div class="notification-option">
+                    <div class="notification-option-header">
+                        <div class="notification-option-info">
+                            <span class="notification-emoji">📱</span>
+                            <div>
+                                <h3>In-App Notifications</h3>
+                                <p>Receive real-time updates within the app</p>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="inAppToggle" checked disabled>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="notification-note">
+                        <small>✓ Always enabled - Get instant notifications while using the app</small>
+                    </div>
+                </div>
+
+                <!-- Email Notifications -->
+                <div class="notification-option">
+                    <div class="notification-option-header">
+                        <div class="notification-option-info">
+                            <span class="notification-emoji">📧</span>
+                            <div>
+                                <h3>Email Notifications</h3>
+                                <p>Receive updates via email</p>
+                            </div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="emailToggle" onchange="toggleNotification('email')">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <input 
+                        type="email" 
+                        id="emailNotifInput"
+                        placeholder="Enter your email address" 
+                        class="notification-input"
+                    >
+                </div>
+
+                <!-- Notification Events -->
+                <div class="events-info">
+                    <h4>You'll be notified when:</h4>
+                    <ul>
+                        <li><span class="check-icon">✓</span> Your order is received</li>
+                        <li><span class="check-icon">✓</span> Your order is being prepared</li>
+                        <li><span class="check-icon">✓</span> Your order is ready for pickup</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-cancel" onclick="hideNotificationModal()">Cancel</button>
+                <button class="btn btn-confirm" onclick="saveNotificationPreferences()">Save Preferences</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- In-App Notification Toast -->
+    <div id="notificationToast" class="notification-toast"></div>
 
     <script src="script.js"></script>
 </body>

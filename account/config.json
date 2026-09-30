@@ -1,0 +1,10 @@
+{
+  "postgres_host": "localhost",
+  "postgres_port": "5434",
+  "postgres_user": "postgres",
+  "postgres_password": "postgres",
+  "postgres_db": "account",
+  "postgres_sslmode": "disable",
+  "port": "8003",
+  "jwt_secret": "super-secret-key-change-me"
+}
